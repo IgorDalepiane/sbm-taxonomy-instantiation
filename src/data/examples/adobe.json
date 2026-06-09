@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0",
+  "taxonomyVersion": "v1",
+  "caseName": "Example — Adobe Creative Cloud",
+  "exportedAt": "2026-06-08T12:00:00Z",
+  "records": [
+    {
+      "dimension": "Monetization and Pricing",
+      "primaryCategory": "subscription_pricing",
+      "evidenceSource": "Adobe Creative Cloud pricing page (individual app and All Apps plans, monthly/annual billing); Adobe investor relations materials on the 2013 subscription transition.",
+      "assignmentRationale": "Revenue is captured through recurring subscription plans priced per application or full suite, replacing the former perpetual-license model. This is the dominant and publicly documented pricing architecture today.",
+      "secondaryNotes": "Perpetual license was the historical model pre-2013; subscription pricing reflects the current operational reality."
+    },
+    {
+      "dimension": "Delivery and Deployment",
+      "primaryCategory": "hybrid_deployment",
+      "evidenceSource": "Adobe Creative Cloud product documentation (desktop installers for Photoshop, Illustrator, Premiere; cloud-synced Libraries, Fonts, Cloud Documents, Behance integration).",
+      "assignmentRationale": "The offering combines locally installed desktop applications with cloud-backed services and asset sync. It is neither pure multi-tenant SaaS nor purely on-premise delivery.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Market Segmentation",
+      "primaryCategory": "b2c",
+      "evidenceSource": "Adobe.com consumer-oriented plan pages; brand positioning toward individual creatives, students, and freelancers; Teams/Enterprise as secondary tier.",
+      "assignmentRationale": "The primary user base and brand identity target individual professionals and prosumers. Although organizational plans exist, volume and positioning remain consumer-centric.",
+      "secondaryNotes": "Teams and Enterprise plans serve organizations but do not redefine the dominant segmentation profile."
+    },
+    {
+      "dimension": "Ecosystem Dynamics",
+      "primaryCategory": "standalone_product",
+      "evidenceSource": "Product pages and feature documentation for individual Creative Cloud applications used in isolation.",
+      "assignmentRationale": "Each major application delivers standalone value to a single user without requiring participation from other users on the platform. Network effects are not structurally central to the value proposition.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Go-to-Market",
+      "primaryCategory": "digital_marketing",
+      "evidenceSource": "Adobe social channels, YouTube tutorials, creative-community campaigns, and performance marketing for individual plans.",
+      "assignmentRationale": "Customer acquisition for the core B2C segment relies on digital campaigns, content marketing, and community presence rather than enterprise direct sales or classic developer PLG.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Adoption and Implementation",
+      "primaryCategory": "revenue_stream_transformation",
+      "evidenceSource": "Adobe SEC filings and earnings reports (2013 onward); academic and industry literature citing Adobe's license-to-subscription shift.",
+      "assignmentRationale": "Adobe is a canonical case of deliberate revenue-model transformation—from perpetual licensing to recurring subscriptions—with documented financial and strategic impact.",
+      "secondaryNotes": ""
+    }
+  ]
+}

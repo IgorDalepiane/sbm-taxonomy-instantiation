@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0",
+  "taxonomyVersion": "v1",
+  "caseName": "Example — Stripe",
+  "exportedAt": "2026-06-08T12:00:00Z",
+  "records": [
+    {
+      "dimension": "Monetization and Pricing",
+      "primaryCategory": "transaction",
+      "evidenceSource": "Stripe pricing page (percentage + fixed fee per successful card charge, e.g. 2.9% + $0.30 in the US).",
+      "assignmentRationale": "Revenue is earned per payment processed—a classic transaction-based model documented directly on the public pricing page.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Delivery and Deployment",
+      "primaryCategory": "api_based_delivery",
+      "evidenceSource": "Stripe API reference documentation; integration guides for developers; absence of end-consumer-facing application UI as the core product.",
+      "assignmentRationale": "The product is delivered primarily through APIs and developer integrations rather than a standalone end-user application—among the most canonical API-based delivery cases in software.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Market Segmentation",
+      "primaryCategory": "b2b",
+      "evidenceSource": "Stripe.com positioning toward businesses and developers accepting payments; no direct offering to end consumers as customers.",
+      "assignmentRationale": "Stripe sells exclusively to merchants, platforms, and developers who need payment acceptance—not to the paying consumer.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Ecosystem Dynamics",
+      "primaryCategory": "two_sided_platform",
+      "evidenceSource": "Stripe Connect documentation; marketplace and platform payment flows connecting merchants and payers.",
+      "assignmentRationale": "Stripe structurally connects merchants/businesses that collect payments with consumers who pay—two distinct sides with different incentives and platform rules.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Go-to-Market",
+      "primaryCategory": "product_led_growth",
+      "evidenceSource": "Stripe developer documentation, test-mode onboarding, and widespread bottom-up integration by individual developers before organizational rollout.",
+      "assignmentRationale": "Adoption typically begins with a developer integrating the API in a project, then expanding to production and organizational commitment—classic dev-tool PLG.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Adoption and Implementation",
+      "primaryCategory": "partner_ecosystem_disruption",
+      "evidenceSource": "Stripe company history; partner/integration ecosystem (plugins, platforms); displacement of legacy payment gateways and bank-centric intermediaries.",
+      "assignmentRationale": "Stripe entered the market by disrupting traditional payment intermediaries through a partner-rich integration ecosystem, redefining how software businesses embed payments.",
+      "secondaryNotes": ""
+    }
+  ]
+}

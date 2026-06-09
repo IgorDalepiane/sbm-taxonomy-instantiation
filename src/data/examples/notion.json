@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0",
+  "taxonomyVersion": "v1",
+  "caseName": "Example — Notion",
+  "exportedAt": "2026-06-08T12:00:00Z",
+  "records": [
+    {
+      "dimension": "Monetization and Pricing",
+      "primaryCategory": "freemium",
+      "evidenceSource": "Notion pricing page (Free tier with unlimited pages/blocks for individuals; Plus, Business, Enterprise paid tiers).",
+      "assignmentRationale": "A robust free tier drives adoption; monetization occurs when individuals or teams convert to paid plans. The pricing structure is explicitly freemium.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Delivery and Deployment",
+      "primaryCategory": "multi_tenant_saas",
+      "evidenceSource": "Notion web and mobile apps; no local installation; cloud-hosted workspaces.",
+      "assignmentRationale": "The product is delivered entirely as a cloud application with shared infrastructure across workspaces—classic multi-tenant SaaS.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Market Segmentation",
+      "primaryCategory": "b2b",
+      "evidenceSource": "Notion Business and Enterprise plan positioning; team billing and workspace administration features; conversion patterns in team contexts.",
+      "assignmentRationale": "Despite a large individual user base, monetization and growth strategy prioritize teams and organizations. Paid conversion predominantly occurs in corporate and team contexts.",
+      "secondaryNotes": "B2C is equally defensible given the volume of individual users; this profile emphasizes monetization strategy over user-count composition."
+    },
+    {
+      "dimension": "Ecosystem Dynamics",
+      "primaryCategory": "direct_network_effects",
+      "evidenceSource": "Notion collaboration features (shared pages, team wikis, collaborative databases).",
+      "assignmentRationale": "Platform value increases as more members of the same team adopt—shared workspaces and collaborative content become more useful with in-team participation.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Go-to-Market",
+      "primaryCategory": "product_led_growth",
+      "evidenceSource": "Notion adoption patterns documented in product marketing and community case studies (bottom-up team expansion).",
+      "assignmentRationale": "Growth follows classic PLG: an individual adopts, invites teammates, the team converts to a paid plan, and usage scales within the organization without initial sales-led motion.",
+      "secondaryNotes": ""
+    },
+    {
+      "dimension": "Adoption and Implementation",
+      "primaryCategory": "hybrid_model_adoption",
+      "evidenceSource": "Notion customer stories and implementation guides on replacing multiple tools (Confluence, Trello, Google Docs, wikis).",
+      "assignmentRationale": "Adoption is hybrid in practice—Notion simultaneously substitutes several incumbent tools. Implementation challenges center on consolidating multiple systems into one workspace.",
+      "secondaryNotes": ""
+    }
+  ]
+}
