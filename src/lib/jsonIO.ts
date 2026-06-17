@@ -45,6 +45,37 @@ function validateCategoryForDimension(
   return dimension.categories.some((c) => c.id === categoryId)
 }
 
+const legacyDimensionAliases: Record<string, string> = {
+  'Market Segments': 'Market Segmentation',
+  'Ecosystem and Network Dynamics': 'Ecosystem Dynamics',
+}
+
+const legacyCategoryAliasesByDimension: Record<string, Record<string, string>> = {
+  'market-segmentation': {
+    sme_focused: 'b2b_smb_sme',
+    enterprise_focused: 'enterprise',
+  },
+  'ecosystem-dynamics': {
+    marketplace_model: 'marketplace',
+    direct_network_effects: 'direct',
+    cross_sided_network_effects: 'cross_sided',
+    data_driven_network_effects: 'data_driven',
+  },
+}
+
+function normalizeDimensionTitle(rawTitle: string): string {
+  const trimmed = rawTitle.trim()
+  return legacyDimensionAliases[trimmed] ?? trimmed
+}
+
+function normalizeCategoryId(
+  dimensionId: string,
+  rawCategoryId: string,
+): string {
+  const trimmed = rawCategoryId.trim()
+  return legacyCategoryAliasesByDimension[dimensionId]?.[trimmed] ?? trimmed
+}
+
 export function serializeClassification(
   records: RecordsByDimension,
   caseName?: string,
@@ -99,10 +130,11 @@ export function parseAndValidateClassification(raw: unknown): ParseResult {
       return { ok: false, errorCode: 'record_not_object' }
     }
 
-    const dimensionTitle = item.dimension
-    if (typeof dimensionTitle !== 'string' || !dimensionTitle.trim()) {
+    const rawDimensionTitle = item.dimension
+    if (typeof rawDimensionTitle !== 'string' || !rawDimensionTitle.trim()) {
       return { ok: false, errorCode: 'missing_dimension_title' }
     }
+    const dimensionTitle = normalizeDimensionTitle(rawDimensionTitle)
 
     const dimensionId = dimensionTitleToId[dimensionTitle]
     if (!dimensionId) {
@@ -122,14 +154,21 @@ export function parseAndValidateClassification(raw: unknown): ParseResult {
     }
     seenDimensions.add(dimensionId)
 
-    const primaryCategory = item.primaryCategory
-    if (typeof primaryCategory !== 'string' || !primaryCategory.trim()) {
+    const rawPrimaryCategory = item.primaryCategory
+    if (
+      typeof rawPrimaryCategory !== 'string' ||
+      !rawPrimaryCategory.trim()
+    ) {
       return {
         ok: false,
         errorCode: 'missing_primary_category',
         errorDetail: dimensionTitle,
       }
     }
+    const primaryCategory = normalizeCategoryId(
+      dimensionId,
+      rawPrimaryCategory,
+    )
 
     if (!validateCategoryForDimension(dimensionId, primaryCategory)) {
       return {

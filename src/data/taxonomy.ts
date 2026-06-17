@@ -239,13 +239,29 @@ export const categoryHelp: Record<string, LocalizedText> = {
     en: 'Business-to-consumer focus, where end users are the primary customers.',
     pt: 'Foco business-to-consumer, em que usuários finais são os clientes principais.',
   },
-  sme_focused: {
-    en: 'Commercial focus directed to small and medium-sized enterprises with corresponding needs and budgets.',
-    pt: 'Foco comercial direcionado a pequenas e médias empresas, com necessidades e orçamentos correspondentes.',
+  b2b_smb_sme: {
+    en: 'Business-to-business focus directed to small and medium-sized businesses.',
+    pt: 'Foco business-to-business direcionado a pequenas e médias empresas.',
   },
-  enterprise_focused: {
-    en: 'Commercial focus directed to large organizations with high-scale or complex requirements.',
-    pt: 'Foco comercial direcionado a grandes organizações com requisitos de alta escala ou maior complexidade.',
+  mid_market: {
+    en: 'Commercial focus on mid-market organizations with intermediate complexity and scale.',
+    pt: 'Foco comercial em organizações mid-market com complexidade e escala intermediárias.',
+  },
+  enterprise: {
+    en: 'Commercial focus directed to large enterprises with complex requirements and procurement cycles.',
+    pt: 'Foco comercial direcionado a grandes empresas com requisitos complexos e ciclos formais de contratação.',
+  },
+  developers_dev_tools: {
+    en: 'Primary customer profile is developers or technical teams adopting dev-tools workflows.',
+    pt: 'Perfil de cliente principal formado por desenvolvedores ou times técnicos em fluxos de dev-tools.',
+  },
+  government_b2g: {
+    en: 'Business-to-government focus, serving public-sector institutions and procurement contexts.',
+    pt: 'Foco business-to-government, atendendo instituições do setor público e contextos de compras governamentais.',
+  },
+  others: {
+    en: 'Market profile does not fit the listed segments cleanly and requires clarification in secondary notes.',
+    pt: 'Perfil de mercado que não se encaixa claramente nos segmentos listados e exige detalhamento em notas secundárias.',
   },
   standalone_product: {
     en: 'The focal software creates value mainly as an independent product, not as a multi-sided platform.',
@@ -255,21 +271,29 @@ export const categoryHelp: Record<string, LocalizedText> = {
     en: 'The software mediates interactions between two distinct participant groups that co-create value.',
     pt: 'O software media interações entre dois grupos distintos de participantes que cocriam valor.',
   },
-  marketplace_model: {
-    en: 'The software operates as an exchange environment matching supply and demand among participants.',
-    pt: 'O software opera como ambiente de troca, conectando oferta e demanda entre participantes.',
+  marketplace: {
+    en: 'The software operates as a marketplace environment that matches supply and demand participants.',
+    pt: 'O software opera como um ambiente de marketplace que conecta participantes de oferta e demanda.',
   },
-  direct_network_effects: {
-    en: 'Value increases primarily as more users join the same side of the network.',
-    pt: 'O valor aumenta principalmente à medida que mais usuários entram no mesmo lado da rede.',
+  plugin_complement: {
+    en: 'The product creates value as a complement, extension, or plugin on top of another core platform.',
+    pt: 'O produto cria valor como complemento, extensão ou plugin sobre outra plataforma principal.',
   },
-  cross_sided_network_effects: {
-    en: 'Value increases on one side as participation grows on the opposite side of the platform.',
-    pt: 'O valor de um lado aumenta conforme cresce a participação do lado oposto da plataforma.',
+  oem_component: {
+    en: 'The offering is embedded as a component in third-party products via OEM or white-label arrangements.',
+    pt: 'A oferta é embarcada como componente em produtos de terceiros por meio de arranjos OEM ou white-label.',
   },
-  data_driven_network_effects: {
-    en: 'Value improves as accumulated usage data enhances recommendations, matching, or performance.',
-    pt: 'O valor melhora à medida que dados acumulados de uso aprimoram recomendações, matching ou desempenho.',
+  direct: {
+    en: 'Value increases primarily as participation grows on the same user side.',
+    pt: 'O valor aumenta principalmente à medida que cresce a participação no mesmo lado de usuários.',
+  },
+  cross_sided: {
+    en: 'Value on one side increases as participation expands on the opposite side.',
+    pt: 'O valor em um lado aumenta conforme a participação se expande no lado oposto.',
+  },
+  data_driven: {
+    en: 'Value improves as accumulated usage data enhances matching, recommendations, or system performance.',
+    pt: 'O valor melhora à medida que dados acumulados de uso aprimoram matching, recomendações ou desempenho do sistema.',
   },
   direct_sales: {
     en: 'Customer acquisition is mainly driven by direct commercial interaction with the provider.',
@@ -394,14 +418,18 @@ export const dimensions: Dimension[] = [
     id: 'market-segmentation',
     title: { en: 'Market Segmentation', pt: 'Segmentação de Mercado' },
     description: {
-      en: 'Which customer profile and commercial segment are prioritized by the business model.',
-      pt: 'Qual perfil de cliente e segmento comercial são priorizados pelo modelo de negócio.',
+      en: 'Which customer profile and commercial segment are prioritized by the business model. If multiple segments apply, keep one primary category and capture additional segments in Secondary Notes.',
+      pt: 'Qual perfil de cliente e segmento comercial são priorizados pelo modelo de negócio. Se múltiplos segmentos se aplicarem, mantenha uma categoria primária e registre os demais em Notas Secundárias.',
     },
     categories: [
       { id: 'b2b', label: { en: 'B2B', pt: 'B2B' } },
       { id: 'b2c', label: { en: 'B2C', pt: 'B2C' } },
-      { id: 'sme_focused', label: { en: 'SME-focused', pt: 'Foco em PME' } },
-      { id: 'enterprise_focused', label: { en: 'Enterprise-focused', pt: 'Foco enterprise' } },
+      { id: 'b2b_smb_sme', label: { en: 'B2B SMB / SME', pt: 'B2B PMEs' } },
+      { id: 'mid_market', label: { en: 'Mid-market', pt: 'Mid-market' } },
+      { id: 'enterprise', label: { en: 'Enterprise', pt: 'Enterprise' } },
+      { id: 'developers_dev_tools', label: { en: 'Developers/Dev-tools', pt: 'Desenvolvedores/Dev-tools' } },
+      { id: 'government_b2g', label: { en: 'Government / B2G', pt: 'Governo / B2G' } },
+      { id: 'others', label: { en: 'Others', pt: 'Outros' } },
     ],
   },
   {
@@ -414,10 +442,12 @@ export const dimensions: Dimension[] = [
     categories: [
       { id: 'standalone_product', label: { en: 'Standalone product', pt: 'Produto standalone' } },
       { id: 'two_sided_platform', label: { en: 'Two-sided platform', pt: 'Plataforma de dois lados' } },
-      { id: 'marketplace_model', label: { en: 'Marketplace model', pt: 'Modelo de marketplace' } },
-      { id: 'direct_network_effects', label: { en: 'Direct network effects', pt: 'Efeitos de rede diretos' } },
-      { id: 'cross_sided_network_effects', label: { en: 'Cross-sided network effects', pt: 'Efeitos de rede cruzados' } },
-      { id: 'data_driven_network_effects', label: { en: 'Data-driven network effects', pt: 'Efeitos de rede orientados a dados' } },
+      { id: 'marketplace', label: { en: 'Marketplace', pt: 'Marketplace' } },
+      { id: 'plugin_complement', label: { en: 'Plugin/Complement', pt: 'Plugin/Complemento' } },
+      { id: 'oem_component', label: { en: 'OEM component', pt: 'Componente OEM' } },
+      { id: 'direct', label: { en: 'Direct', pt: 'Direto' } },
+      { id: 'cross_sided', label: { en: 'Cross-sided', pt: 'Lado cruzado' } },
+      { id: 'data_driven', label: { en: 'Data-driven', pt: 'Orientado a dados' } },
     ],
   },
   {

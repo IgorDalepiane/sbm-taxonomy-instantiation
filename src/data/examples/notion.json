@@ -27,7 +27,7 @@
     },
     {
       "dimension": "Ecosystem Dynamics",
-      "primaryCategory": "direct_network_effects",
+      "primaryCategory": "direct",
       "evidenceSource": "Notion collaboration features (shared pages, team wikis, collaborative databases).",
       "assignmentRationale": "Platform value increases as more members of the same team adopt—shared workspaces and collaborative content become more useful with in-team participation.",
       "secondaryNotes": ""
