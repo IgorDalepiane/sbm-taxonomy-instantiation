@@ -46,6 +46,7 @@ export const appUiText: Record<
     importSuccess: (caseName: string) => string
     importSuccessGeneric: string
     importFileError: string
+    draftRestored: string
     caseNameLabel: string
     caseNamePlaceholder: string
   }
@@ -105,6 +106,7 @@ export const appUiText: Record<
     importSuccess: (caseName) => `Imported "${caseName}" successfully.`,
     importSuccessGeneric: 'Classification imported successfully.',
     importFileError: 'Could not read the file. Please upload a valid JSON file.',
+    draftRestored: 'We restored your classification in progress.',
     caseNameLabel: 'Case name (optional)',
     caseNamePlaceholder: 'e.g. Acme Corp — CRM platform',
   },
@@ -164,6 +166,7 @@ export const appUiText: Record<
     importSuccessGeneric: 'Classificação importada com sucesso.',
     importFileError:
       'Não foi possível ler o arquivo. Envie um arquivo JSON válido.',
+    draftRestored: 'Recuperamos sua classificação em andamento.',
     caseNameLabel: 'Nome do caso (opcional)',
     caseNamePlaceholder: 'ex.: Acme Corp — plataforma CRM',
   },
