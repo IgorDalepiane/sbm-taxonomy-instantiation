@@ -36,8 +36,14 @@ export const wizardUiText: Record<
     secondaryNotesTerm: string
     secondaryNotesHelp: string
     secondaryPlaceholder: string
+    requiredLegend: string
     previous: string
     next: string
+    finishPending: string
+    finishPendingNote: string
+    finishComplete: string
+    finishInstructions: (exportLabel: string) => [string, string, string]
+    draftNote: string
     resetForm: string
     exportPdf: string
     completionCounter: (done: number, total: number) => string
@@ -87,8 +93,21 @@ export const wizardUiText: Record<
       'Optional complementary details (secondary channels, revenue streams, transition context) that do not change the primary category.',
     secondaryPlaceholder:
       'Optional: secondary channels, mixed models, constraints, or transition notes.',
+    requiredLegend: '* Required field',
     previous: 'Previous',
     next: 'Next',
+    finishPending:
+      'You are on the last dimension. Some required fields are still missing in:',
+    finishPendingNote:
+      'You can export anyway, but the classification will be incomplete.',
+    finishComplete: 'Classification complete!',
+    finishInstructions: (exportLabel) => [
+      'Click ',
+      exportLabel,
+      ', go back to the Google Form and attach the file to finish.',
+    ],
+    draftNote:
+      'Your progress is saved only in this browser tab. For the survey, export the JSON.',
     resetForm: 'Reset Form',
     exportPdf: 'Export PDF',
     completionCounter: (done, total) => `${done} / ${total} dimensions complete`,
@@ -144,8 +163,21 @@ export const wizardUiText: Record<
       'Detalhes complementares opcionais (canais secundários, fluxos de receita, contexto de transição) que não alteram a categoria primária.',
     secondaryPlaceholder:
       'Opcional: canais secundários, modelos mistos, restrições ou observações de transição.',
+    requiredLegend: '* Campo obrigatório',
     previous: 'Anterior',
     next: 'Próxima',
+    finishPending:
+      'Você está na última dimensão. Ainda faltam campos obrigatórios em:',
+    finishPendingNote:
+      'Você pode exportar mesmo assim, mas a classificação ficará incompleta.',
+    finishComplete: 'Classificação concluída!',
+    finishInstructions: (exportLabel) => [
+      'Clique em ',
+      exportLabel,
+      ', volte ao formulário do Google e anexe o arquivo para finalizar.',
+    ],
+    draftNote:
+      'Seu progresso fica salvo apenas nesta aba do navegador. Para a pesquisa, exporte o JSON.',
     resetForm: 'Limpar Formulário',
     exportPdf: 'Exportar PDF',
     completionCounter: (done, total) =>

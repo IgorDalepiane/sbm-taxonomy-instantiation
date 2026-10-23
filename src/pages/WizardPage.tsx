@@ -18,12 +18,30 @@ import {
 } from '../lib/jsonIO'
 import type { ClassificationRecord } from '../types/classification'
 
+function RequiredMark() {
+  return (
+    <span aria-hidden="true" className="ml-0.5 text-red-600">
+      *
+    </span>
+  )
+}
+
+function isRecordComplete(record: ClassificationRecord) {
+  return (
+    record.primaryCategory.trim() !== '' &&
+    record.evidenceSource.trim() !== '' &&
+    record.assignmentRationale.trim() !== ''
+  )
+}
+
 export function WizardPage() {
   const {
     records,
     setRecords,
     caseName,
     setCaseName,
+    currentIndex,
+    setCurrentIndex,
     importMessage,
     clearImportMessage,
     resetClassification,
@@ -31,7 +49,6 @@ export function WizardPage() {
 
   const { locale } = useLocale()
   const appText = appUiText[locale]
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [showDimensionGlossary, setShowDimensionGlossary] = useState(false)
 
   const text = wizardUiText[locale]
@@ -43,20 +60,21 @@ export function WizardPage() {
     return () => window.clearTimeout(timer)
   }, [importMessage, clearImportMessage])
 
-  const completedCount = useMemo(
+  const pendingDimensions = useMemo(
     () =>
-      dimensions.filter((dimension) => {
-        const record = records[dimension.id]
-        return (
-          record.primaryCategory.trim() !== '' &&
-          record.evidenceSource.trim() !== '' &&
-          record.assignmentRationale.trim() !== ''
-        )
-      }).length,
+      dimensions
+        .map((dimension, index) => ({ dimension, index }))
+        .filter(({ dimension }) => !isRecordComplete(records[dimension.id])),
     [records],
   )
 
+  const completedCount = dimensions.length - pendingDimensions.length
   const completionRate = Math.round((completedCount / dimensions.length) * 100)
+  const isComplete = pendingDimensions.length === 0
+  const isLastDimension = currentIndex === dimensions.length - 1
+  const showFinishNotice = isComplete || isLastDimension
+  const [instructionsBefore, instructionsExport, instructionsAfter] =
+    text.finishInstructions(appText.exportJson)
 
   const updateRecord = (field: keyof ClassificationRecord, value: string) => {
     setRecords((previous) => ({
@@ -76,11 +94,6 @@ export function WizardPage() {
 
   const handleExportPdf = () => {
     exportPdf({ records, locale, caseName, completionRate })
-  }
-
-  const handleReset = () => {
-    resetClassification()
-    setCurrentIndex(0)
   }
 
   const currentRecord = records[currentDimension.id]
@@ -164,11 +177,7 @@ export function WizardPage() {
           </div>
           <ul className="space-y-2">
             {dimensions.map((dimension, index) => {
-              const record = records[dimension.id]
-              const completed =
-                record.primaryCategory &&
-                record.evidenceSource &&
-                record.assignmentRationale
+              const completed = isRecordComplete(records[dimension.id])
               const active = index === currentIndex
               return (
                 <li key={dimension.id}>
@@ -216,11 +225,13 @@ export function WizardPage() {
           </div>
 
           <div className="space-y-5">
+            <p className="text-xs text-slate-500">{text.requiredLegend}</p>
             <div>
               <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-2">
                   <label className="block text-sm font-semibold text-slate-700">
                     {text.primaryCategory}
+                    <RequiredMark />
                   </label>
                   <HelpTooltip
                     term={text.primaryCategoryTerm}
@@ -290,6 +301,7 @@ export function WizardPage() {
                   className="block text-sm font-semibold text-slate-700"
                 >
                   {text.evidenceSource}
+                  <RequiredMark />
                 </label>
                 <HelpTooltip
                   term={text.evidenceSourceTerm}
@@ -298,6 +310,7 @@ export function WizardPage() {
               </div>
               <textarea
                 id="evidence-source"
+                aria-required="true"
                 value={currentRecord.evidenceSource}
                 onChange={(event) =>
                   updateRecord('evidenceSource', event.target.value)
@@ -315,6 +328,7 @@ export function WizardPage() {
                   className="block text-sm font-semibold text-slate-700"
                 >
                   {text.assignmentRationale}
+                  <RequiredMark />
                 </label>
                 <HelpTooltip
                   term={text.assignmentRationaleTerm}
@@ -323,6 +337,7 @@ export function WizardPage() {
               </div>
               <textarea
                 id="assignment-rationale"
+                aria-required="true"
                 value={currentRecord.assignmentRationale}
                 onChange={(event) =>
                   updateRecord('assignmentRationale', event.target.value)
@@ -359,6 +374,45 @@ export function WizardPage() {
             </div>
           </div>
 
+          {showFinishNotice && (
+            <div
+              role="status"
+              className={`mt-6 rounded-lg border px-4 py-3 text-sm ${
+                isComplete
+                  ? 'border-emerald-200 bg-emerald-50 text-emerald-900'
+                  : 'border-amber-200 bg-amber-50 text-amber-900'
+              }`}
+            >
+              {isComplete ? (
+                <p>
+                  <strong className="font-semibold">{text.finishComplete}</strong>{' '}
+                  {instructionsBefore}
+                  <strong className="font-semibold">{instructionsExport}</strong>
+                  {instructionsAfter}
+                </p>
+              ) : (
+                <>
+                  <p>{text.finishPending}</p>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {pendingDimensions.map(({ dimension, index }) => (
+                      <li key={`pending-${dimension.id}`}>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentIndex(index)}
+                          className="rounded-md border border-amber-300 bg-white px-2.5 py-1 text-xs font-medium text-amber-900 transition hover:bg-amber-100"
+                        >
+                          {resolveText(dimension.title, locale)}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-2">{text.finishPendingNote}</p>
+                </>
+              )}
+              <p className="mt-2 text-xs opacity-80">{text.draftNote}</p>
+            </div>
+          )}
+
           <div className="mt-6 flex flex-col gap-3 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
             <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-2">
               <button
@@ -376,7 +430,7 @@ export function WizardPage() {
                     Math.min(dimensions.length - 1, value + 1),
                   )
                 }
-                disabled={currentIndex === dimensions.length - 1}
+                disabled={isLastDimension}
                 className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {text.next}
@@ -386,7 +440,7 @@ export function WizardPage() {
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2">
               <button
                 type="button"
-                onClick={handleReset}
+                onClick={resetClassification}
                 className="order-2 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 sm:order-none sm:w-auto"
               >
                 {text.resetForm}
@@ -395,7 +449,11 @@ export function WizardPage() {
                 <button
                   type="button"
                   onClick={handleExportJson}
-                  className="rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-2.5 text-sm font-medium text-indigo-800 transition hover:bg-indigo-100"
+                  className={`rounded-lg border border-indigo-300 bg-indigo-50 px-4 py-2.5 text-sm font-medium text-indigo-800 transition hover:bg-indigo-100 ${
+                    showFinishNotice
+                      ? 'ring-2 ring-indigo-500 ring-offset-2'
+                      : ''
+                  }`}
                 >
                   {appText.exportJson}
                 </button>
